@@ -20,3 +20,7 @@ logs/
 # Build artifacts (if any specific to Node.js backend)
 build/
 dist/
+
+# Database
+database/
+
