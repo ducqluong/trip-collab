@@ -1,0 +1,31 @@
+# Dependency directories
+node_modules/
+.npm/
+.yarn/
+
+# Next.js build output
+.next/
+out/ # If you're building a static export
+
+# Editor and OS-specific files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Git files
+.git/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# npm debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Other common temporary files
+*.log
+*.tmp
+tmp/

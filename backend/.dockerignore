@@ -1,0 +1,31 @@
+# Dependency directories
+node_modules/
+.npm/
+.yarn/
+
+# Editor and OS-specific files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Git files
+.git/
+
+# Environment variables
+.env
+.env.development.local # Example for specific env files
+
+# npm debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output (if you have a build step, e.g., transpiling TypeScript)
+dist/
+build/
+
+# Logs and temporary files
+logs/
+*.log
+*.tmp
+tmp/
