@@ -1,0 +1,62 @@
+version: "3.8" # Specify the Docker Compose file format version
+
+services:
+  # PostgreSQL Database Service
+  db:
+    image: postgres:16-alpine # Use a recent, lightweight PostgreSQL image
+    restart: always # Always restart the container if it stops
+    environment:
+      POSTGRES_DB: trip_planner_db # Database name
+      POSTGRES_USER: user # Database user
+      POSTGRES_PASSWORD: password # Database password (CHANGE THIS FOR PRODUCTION!)
+    ports:
+      - "5432:5432" # Map host port 5432 to container port 5432
+    volumes:
+      - db_data:/var/lib/postgresql/data # Persist database data
+      - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/init.sql # Initialize schema
+
+  # Node.js Backend Service
+  backend:
+    build:
+      context: ./backend # Path to your backend Dockerfile
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      NODE_ENV: development # Set development environment
+      PORT: 5000 # The port your Express app will listen on
+      DATABASE_URL: postgres://user:password@db:5432/trip_planner_db # Database connection string
+    ports:
+      - "5000:5000" # Map host port 5000 to container port 5000
+    depends_on:
+      - db # Ensure database starts before the backend
+    volumes:
+      - ./backend:/usr/src/app # Mount local code for live development
+      - /usr/src/app/node_modules # Exclude node_modules from host mount
+
+  # Next.js Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile # This refers to the updated Dockerfile above
+    restart: always
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:5000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app # Mount local code for live development
+      # This anonymous volume declaration is CRUCIAL for dev.
+      # It ensures that the `node_modules` installed *inside* the container
+      # by `npm install` are used, rather than being shadowed by an empty
+      # or incomplete `node_modules` from your host's bind mount.
+      - /app/node_modules
+      - /app/.next # Exclude .next build cache from host mount
+    command: npm run dev # Run the development server
+    # Alternatively, if you want production build in dev:
+    # command: npm start
+
+volumes:
+  db_data: # Define the volume for persistent database data
