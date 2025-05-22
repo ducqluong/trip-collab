@@ -3,7 +3,7 @@
 const express = require("express");
 const cors = require("cors"); // Import the cors package
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // Configure CORS
 // In development, allow requests from your Next.js frontend's origin

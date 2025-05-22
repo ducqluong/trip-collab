@@ -38,7 +38,7 @@ Follow these steps to get the project up and running on your local machine using
 Once all services are up and running, you can access them via your web browser or API client:
 
 - **Frontend (Next.js App):** `http://localhost:3000`
-- **Backend (Node.js API):** `http://localhost:5000`
+- **Backend (Node.js API):** `http://localhost:5001`
 - **PostgreSQL Database:** Accessible from your backend service via the internal Docker network. If you need to connect from your host machine (e.g., using a GUI tool like DBeaver or pgAdmin), use `localhost:5432` with user `user`, password `password`, and database `trip_planner_db`.
 
 To stop the services, press `Ctrl+C` in your terminal. To stop and remove the containers, networks, and volumes (including database data), run:

@@ -16,7 +16,7 @@ RUN npm ci
 COPY . .
 
 # Expose the port your Express app runs on
-EXPOSE 5000
+EXPOSE 5001
 
 # Command to run your Node.js application
 CMD [ "npm", "start" ]
