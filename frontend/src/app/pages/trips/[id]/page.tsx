@@ -1,4 +1,3 @@
-// frontend/src/app/trips/[id]/page.tsx
 "use client"; // This directive is needed because we're using a client-side hook (useParams)
 
 import { useParams } from "next/navigation"; // Correct import for App Router

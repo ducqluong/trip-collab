@@ -13,6 +13,12 @@ export default function HomePage() {
           Login
         </Link>
         <Link
+          href="/register"
+          className="text-blue-600 hover:underline mx-4"
+        >
+          Register
+        </Link>
+        <Link
           href="/dashboard"
           className="text-blue-600 hover:underline mx-4"
         >
