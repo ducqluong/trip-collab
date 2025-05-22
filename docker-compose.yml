@@ -26,7 +26,7 @@ services:
       PORT: 5001 # The port your Express app will listen on
       DATABASE_URL: postgres://user:password@db:5432/trip_planner_db # Database connection string
     ports:
-      - "5001:5000" # Map host port 5001 to container port 5000
+      - "5001:5001" # Map host port 5001 to container port 5000
     depends_on:
       - db # Ensure database starts before the backend
     volumes:
