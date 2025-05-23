@@ -4,11 +4,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { setToken } from "@/utils/auth";
+import { LoginRequest, AuthResponse } from "@/types/auth";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,8 +17,10 @@ export default function LoginPage() {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+    const loginData: LoginRequest = {
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+    };
 
     try {
       const response = await fetch("/api/auth/login", {
@@ -25,10 +28,10 @@ export default function LoginPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(loginData),
       });
 
-      const data = await response.json();
+      const data: AuthResponse = await response.json();
 
       if (!response.ok) {
         throw new Error(data.message || "Login failed");

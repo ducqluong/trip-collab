@@ -1,30 +1,26 @@
 import { jwtDecode } from "jwt-decode";
+import { DecodedToken, User } from "@/types/auth";
 
-interface DecodedToken {
-  exp: number;
-  [key: string]: unknown;
-}
-
-export const setToken = (token: string) => {
+export const setToken = (token: string): void => {
   if (typeof window !== "undefined") {
     localStorage.setItem("token", token);
   }
 };
 
-export const getToken = () => {
+export const getToken = (): string | null => {
   if (typeof window !== "undefined") {
     return localStorage.getItem("token");
   }
   return null;
 };
 
-export const removeToken = () => {
+export const removeToken = (): void => {
   if (typeof window !== "undefined") {
     localStorage.removeItem("token");
   }
 };
 
-export const isTokenValid = () => {
+export const isTokenValid = (): boolean => {
   const token = getToken();
   if (!token) return false;
 
@@ -37,29 +33,28 @@ export const isTokenValid = () => {
   }
 };
 
-export const getUserFromToken = () => {
+export const getUserFromToken = (): User | null => {
   const token = getToken();
   if (!token) return null;
 
   try {
     const decoded = jwtDecode<DecodedToken>(token);
-    return decoded;
+    return {
+      id: decoded.id,
+      email: decoded.email,
+    };
   } catch {
     return null;
   }
 };
 
-export const logout = async () => {
+export const logout = async (): Promise<void> => {
   try {
-    // Call the logout API endpoint
     await fetch("/api/auth/logout", {
       method: "POST",
     });
 
-    // Remove token from localStorage
     removeToken();
-
-    // Redirect to login page
     window.location.href = "/login";
   } catch (error) {
     console.error("Logout error:", error);

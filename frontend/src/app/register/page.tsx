@@ -4,11 +4,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { setToken } from "@/utils/auth";
+import { RegisterRequest, AuthResponse } from "@/types/auth";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,11 +17,13 @@ export default function RegisterPage() {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const confirmPassword = formData.get("confirmPassword") as string;
+    const registerData: RegisterRequest = {
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+      confirmPassword: formData.get("confirmPassword") as string,
+    };
 
-    if (password !== confirmPassword) {
+    if (registerData.password !== registerData.confirmPassword) {
       setError("Passwords do not match");
       setLoading(false);
       return;
@@ -32,10 +35,10 @@ export default function RegisterPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(registerData),
       });
 
-      const data = await response.json();
+      const data: AuthResponse = await response.json();
 
       if (!response.ok) {
         throw new Error(data.message || "Registration failed");
