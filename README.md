@@ -59,8 +59,9 @@ Once running, you can access the services at:
   - Host: localhost
   - Port: 5432
   - Database: trip_planner_db
-  - Username: user
+  - Username: admin
   - Password: password
+  - psql: psql -h localhost -p 5432 -U admin -d trip_planner_db
 
 ### Development Workflow
 
