@@ -5,7 +5,7 @@ services:
     restart: always # Always restart the container if it stops
     environment:
       POSTGRES_DB: trip_planner_db # Database name
-      POSTGRES_USER: user # Database user
+      POSTGRES_USER: admin # Database user
       POSTGRES_PASSWORD: password # Database password (CHANGE THIS FOR PRODUCTION!)
     ports:
       - "5432:5432" # Map host port 5432 to container port 5432
