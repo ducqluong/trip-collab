@@ -1,48 +1,101 @@
+# Trip Collab
+
+A collaborative trip planning application that helps users plan and organize their trips together. Built with Next.js, Node.js, and PostgreSQL.
+
+## Features
+
+- Collaborative trip planning
+- Real-time updates
+- User authentication
+- Trip itinerary management
+- Shared expenses tracking
+
+## Tech Stack
+
+- **Frontend:** Next.js, React, TypeScript
+- **Backend:** Node.js, Express, TypeScript
+- **Database:** PostgreSQL
+- **Containerization:** Docker & Docker Compose
+
+## Prerequisites
+
+- **Git:** Make sure Git is installed on your system
+- **Node.js & npm:** Node.js 20.x or higher (useful for local development)
+- **Docker Desktop:** Required for running the application in containers
+
 ## Getting Started
-
-Follow these steps to get the project up and running on your local machine using Docker Compose.
-
-### Prerequisites
-
-- **Git:** Make sure Git is installed on your system.
-- **Node.js & npm:** While we use Docker for consistency, having Node.js and npm installed locally (at least Node.js 20.x or higher) is useful for local development and running `npm` commands directly in the `frontend` or `trip-planner-backend` directories if needed.
-- **Docker Desktop:** Ensure Docker Desktop is installed and running on your machine. This includes Docker Engine and Docker Compose.
 
 ### Local Development Setup (Docker Compose)
 
-1.  **Clone the repository:**
+1. **Clone the repository:**
 
-    ```bash
-    git clone [https://github.com/ducqluong/trip-collab.git](https://github.com/ducqluong/trip-collab.git) # Replace with your actual repo URL if different
-    cd trip-collab
-    ```
+   ```bash
+   git clone https://github.com/ducqluong/trip-collab.git
+   cd trip-collab
+   ```
 
-2.  **Build and start the Docker containers:**
-    Navigate to the root directory of the project (where `docker-compose.yml` is located) and run:
+2. **Build and start the Docker containers:**
 
-    ```bash
-    docker compose up --build
-    ```
+   ```bash
+   docker compose up --build
+   ```
 
-    This command will:
+   This command will:
 
-    - Build the Docker images for your Next.js frontend and Node.js backend.
-    - Download the PostgreSQL Docker image.
-    - Start all three services (PostgreSQL, Backend, Frontend).
-    - Initialize the PostgreSQL database schema based on `trip-planner-backend/database/schema.sql` when the `db` service starts for the first time.
+   - Build Docker images for Next.js frontend and Node.js backend
+   - Download and configure PostgreSQL
+   - Initialize the database schema
+   - Start all services
 
-    The initial build might take some time as it downloads base images and installs all Node.js dependencies. Subsequent builds will be faster due to Docker's caching.
+   The initial build might take a few minutes. Subsequent builds will be faster due to Docker's caching.
 
 ### Accessing Services
 
-Once all services are up and running, you can access them via your web browser or API client:
+Once running, you can access the services at:
 
-- **Frontend (Next.js App):** `http://localhost:3000`
-- **Backend (Node.js API):** `http://localhost:5001`
-- **PostgreSQL Database:** Accessible from your backend service via the internal Docker network. If you need to connect from your host machine (e.g., using a GUI tool like DBeaver or pgAdmin), use `localhost:5432` with user `user`, password `password`, and database `trip_planner_db`.
+- **Frontend:** [http://localhost:3000](http://localhost:3000)
+- **Backend API:** [http://localhost:5001](http://localhost:5001)
+- **PostgreSQL Database:**
+  - Host: localhost
+  - Port: 5432
+  - Database: trip_planner_db
+  - Username: user
+  - Password: password
 
-To stop the services, press `Ctrl+C` in your terminal. To stop and remove the containers, networks, and volumes (including database data), run:
+### Development Workflow
+
+- The frontend and backend code are mounted as volumes, so changes will be reflected immediately
+- Frontend hot-reloading is enabled
+- Backend will automatically restart when changes are detected
+
+### Stopping the Services
+
+To stop all services:
+
+```bash
+docker compose down
+```
+
+To stop and remove all data (including database):
 
 ```bash
 docker compose down -v
 ```
+
+## Project Structure
+
+```
+trip-collab/
+├── frontend/          # Next.js frontend application
+├── backend/           # Node.js backend API
+├── docker-compose.yml # Docker services configuration
+└── README.md         # Project documentation
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request

@@ -1,4 +1,4 @@
-"use client"; // This directive is needed because we're using a client-side hook (useParams)
+"use client";
 
 import { useParams } from "next/navigation"; // Correct import for App Router
 import Link from "next/link";

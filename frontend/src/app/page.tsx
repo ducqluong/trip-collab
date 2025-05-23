@@ -1,4 +1,3 @@
-// frontend/src/app/page.tsx
 import Navigation from "@/components/Navigation";
 
 export default function HomePage() {
