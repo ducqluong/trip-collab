@@ -56,9 +56,9 @@ app.get("/", (req, res) => {
 
 // 1. User Registration: /api/register
 app.post("/api/register", async (req, res) => {
-  const { username, email, password } = req.body; //
+  const { email, password } = req.body; //
 
-  if (!username || !email || !password) {
+  if (!email || !password) {
     //
     return res.status(400).json({ message: "Please enter all fields" }); //
   }
@@ -85,8 +85,8 @@ app.post("/api/register", async (req, res) => {
     // Save user to database
     const newUser = await pool.query(
       //
-      "INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3) RETURNING id, username, email", //
-      [username, email, hashedPassword] //
+      "INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING id, email", //
+      [email, hashedPassword] //
     );
 
     // Generate JWT
@@ -101,7 +101,6 @@ app.post("/api/register", async (req, res) => {
       user: {
         //
         id: newUser.rows[0].id, //
-        username: newUser.rows[0].username, //
         email: newUser.rows[0].email, //
       },
     });
@@ -159,7 +158,6 @@ app.post("/api/login", async (req, res) => {
       user: {
         //
         id: foundUser.id, //
-        username: foundUser.username, //
         email: foundUser.email, //
       },
     });
