@@ -48,3 +48,20 @@ export const getUserFromToken = () => {
     return null;
   }
 };
+
+export const logout = async () => {
+  try {
+    // Call the logout API endpoint
+    await fetch("/api/auth/logout", {
+      method: "POST",
+    });
+
+    // Remove token from localStorage
+    removeToken();
+
+    // Redirect to login page
+    window.location.href = "/login";
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+};

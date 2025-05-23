@@ -1,5 +1,5 @@
 // frontend/src/app/page.tsx
-import Link from "next/link"; // Import Link for client-side navigation
+import Navigation from "@/components/Navigation";
 
 export default function HomePage() {
   return (
@@ -8,20 +8,7 @@ export default function HomePage() {
       <p className="mt-4 text-lg text-gray-600">
         Your collaborative travel adventure begins here.
       </p>
-      <nav className="mt-8">
-        <Link
-          href="/dashboard"
-          className="text-blue-600 hover:underline mx-4"
-        >
-          Dashboard
-        </Link>
-        <Link
-          href="/trips/example-trip-id"
-          className="text-blue-600 hover:underline mx-4"
-        >
-          Example Trip
-        </Link>
-      </nav>
+      <Navigation />
     </div>
   );
 }
