@@ -57,11 +57,11 @@ Once running, you can access the services at:
 - **Backend API:** [http://localhost:5001](http://localhost:5001)
 - **PostgreSQL Database:**
   - Host: localhost
-  - Port: 5432
+  - Port: 5433
   - Database: trip_planner_db
   - Username: user
   - Password: password
-  - psql: psql -h localhost -p 5432 -U user -d trip_planner_db
+  - psql: psql -h localhost -p 5433 -U user -d trip_planner_db
 
 ### Development Workflow
 
