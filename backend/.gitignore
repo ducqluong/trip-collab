@@ -21,6 +21,3 @@ logs/
 build/
 dist/
 
-# Database
-database/
-
